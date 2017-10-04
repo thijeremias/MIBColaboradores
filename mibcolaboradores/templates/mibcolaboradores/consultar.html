@@ -1,0 +1,51 @@
+{% extends 'mibcolaboradores/base.html' %}
+{% block content %}
+{% if controle == 1 %}
+{% if form %}
+<p class="lead">Colaboradores encontrados na {{grupo}}</p>
+  {% for post in form %}
+      <br>
+      <div align="left"><a class="btn btn-default" href="{% url 'editar' post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></div>
+      <div align="left">
+        <b><label class="lead">Nome:&nbsp </label></b>{{ post.colaborador_nome | upper }} <br>
+        <b><label class="lead">Função:&nbsp </label></b>{{ post.colaborador_funcao | upper }} <br>
+        <b><label class="lead">CPF:&nbsp </label></b>{{ post.colaborador_cpf }} <br>
+        <b><label class="lead">Franquia:&nbsp </label></b>{{ post.colaborador_franquia | upper }} <br>
+        <b><label class="lead">Sexo:&nbsp </label></b>{{ post.colaborador_sexo | upper}} <br>
+        <b><label class="lead">Data de nascimento:&nbsp </label></b>{{ post.colaborador_nascimento }} <br>
+        <b><label class="lead">Data de admissão:&nbsp </label></b>{{ post.colaborador_admissao }} <br>
+        {% if post.colaborador_demissao is None %}
+        <b><label class="lead">Ativo:&nbsp </label></b>Sim<br>
+        {% else %}
+        <b><label class="lead">Data de demissão:&nbsp </label></b>{{ post.colaborador_demissao }} <br>
+        {% endif %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit"></button>
+    </div>
+  {% endfor %}
+{% else %}
+<p class="lead">Não existe colaboradores com o filtro especificado na {{grupo}}</p>
+{% endif %}
+{% else %}
+{% if controle is not 2 %}
+<p class="lead">Consulte aqui seus colaboradores</p>
+<div class="container" align="justify">
+  <div class="form-group">
+     <div class="col-md-4">
+          <form method="POST" class="form-signin">
+           {% csrf_token %}
+             <!--<h2 class="form-signin-heading">Filtros</h2>-->
+             <label>Digite nome ou CPF do colaborador:</label><br>
+             {{form.colaborador_nome}}
+             <button class="btn btn-primary" type="submit">Consultar</button>
+          </form>
+      </div>
+  </div>
+</div>
+{% else %}
+<p class="lead">Edição relizada com sucesso!</p>
+{% endif %}
+{% endif %}
+{% endblock content %}
+
+
+

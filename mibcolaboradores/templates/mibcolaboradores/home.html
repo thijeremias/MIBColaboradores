@@ -1,0 +1,32 @@
+{% extends 'mibcolaboradores/base.html' %}
+{% load filters %}
+{% block content %}
+<p class="lead">MIB Colaboradores</p>
+<div align="justify">
+  <p>Manter o corpo de funcionários da empresa atualizado auxilia a camada estratégica na tomada de decisões
+  beneficiando diretamente as franquias através de definições quantitativas e qualitativas relativa aos recursos
+  humanos. Navegue pelo menu acima para gerenciar o cadastro de seus funcionários. Consulte abaixo a quantidade utilizada 
+  e os limites definidos para sua franquia.</p><br>
+</div>
+<div align = "center">
+ <table> <th class='lead'><b>Dashboard - {{grupo}}<b></b></th>
+  <tr>
+    <th>Função</th>
+    <th>Utilizados</th>
+    <th>Limites</th>
+  </tr>
+  {% for franquia in franquias %}
+         <tr>
+             <td>{{franquia.franquia_funcao}}</td>
+             <!-- chama modulo que calcula quantidade de colaboradores por função -->
+             {% if colaboradores|car:franquia.franquia_funcao > franquia.franquia_limite %}
+             <td><font color="RED"><strong>{{colaboradores|car:franquia.franquia_funcao}}</strong></font></td>
+             {% else %}
+                  <td>{{colaboradores|car:franquia.franquia_funcao}}</td>
+             {% endif %}  
+             <td>{{franquia.franquia_limite}}</td>
+         </tr>
+  {% endfor %}
+  </table>
+ </div>
+{% endblock %}

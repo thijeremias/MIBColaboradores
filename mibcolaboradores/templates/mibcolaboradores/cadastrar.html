@@ -1,0 +1,65 @@
+{% extends 'mibcolaboradores/base.html' %}
+{% block content %}
+{% if is_valid is not True %}
+<p class="lead">Adicione aqui seu novo colaborador</p>
+<div class="container" align="justify">
+  <div class="form-group">
+     <div class="col-md-4">
+       	  <form id="form1" method="POST" class="form-signin">
+         	 {% csrf_token %}
+          	 <h2 class="form-signin-heading">Novo Colaborador</h2>
+         	 <label>Nome:&nbsp&nbsp&nbsp</label>
+         	 	{{form.colaborador_nome}} {{form.colaborador_nome.errors}}<br>
+         	 <label>Sexo:&nbsp&nbsp&nbsp&nbsp</label>
+         	 {{form.colaborador_sexo.0}} {{form.colaborador_sexo.1}} {{form.colaborador_sexo.errors}}<br>
+         	 <label>Nascimento:</label>
+         	 	{{form.colaborador_nascimento}} {{form.colaborador_nascimento.errors}}<br>
+         	 <label>CPF:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+         	 	{{form.colaborador_cpf}} {{form.colaborador_cpf.errors}}<br>
+         	 	<label>Função:</label>
+         	 	{{form.colaborador_funcao}} {{form.colaborador_funcao.errors}}<br>
+         	 <label>Data de admissão:</label>
+         	 	{{form.colaborador_admissao}} {{form.colaborador_admissao.errors}}<br>
+         	 <label>Data de demissão:</label>
+         	 	{{form.colaborador_demissao}} {{form.colaborador_demissao.errors}}<br>
+            {{form.colaborador_demissao.help_text}}
+         	 <label>Ativo</label>
+         	 	{{form.colaborador_ativo}} {{form.colaborador_ativo.errors}}<br>
+         	 <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+          </form>
+      </div>
+  </div>
+</div>
+{% else %}
+<p class="lead">Colaborador adicionado com sucesso!</p>
+<div class="container" align="justify">
+  <div class="form-group">
+     <div class="col-md-4">
+          <form method="POST" class="form-signin">
+           {% csrf_token %}
+             <h2 class="form-signin-heading">Novo Colaborador</h2>
+           <label>Nome:&nbsp&nbsp&nbsp</label>
+            {{form.colaborador_nome}}<br>
+           
+           <label>Sexo:</label>
+            {{form.colaborador_sexo.0}} {{form.colaborador_sexo.1}}<br>
+           <label>Nascimento:</label>
+            {{form.colaborador_nascimento}}<br>
+           <label>CPF:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+            {{form.colaborador_cpf}}<br>
+            <label>Função:</label>
+            {{form.colaborador_funcao}}<br>
+           <label>Data de admissão:</label>
+            {{form.colaborador_admissao}}<br>
+           <label>Data de demissão:</label>
+            {{form.colaborador_demissao}}<br>
+           <label>Ativo</label>
+            {{form.colaborador_ativo}}<br>
+           <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+          </form>
+      </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock content %}

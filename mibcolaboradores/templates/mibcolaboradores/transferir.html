@@ -1,0 +1,37 @@
+{% extends 'mibcolaboradores/base.html' %}
+{% block content %}
+{% if controle == 1 %}
+<p class='lead' align='left'>Colaboradores disponiveis para transferência na {{franquia}}</p>
+<table border="2px" width="15%">
+    <thead>
+        <tr>
+            <td><strong>NOME</strong></td>
+            <td><strong>CPF</strong></td>
+            <td><strong>FUNÇÃO</strong></td>
+            <td><strong>TRANSFERIR</strong></td>
+        </tr>
+    </thead>
+{% for colaborador in form %}
+<tbody>
+    <tr>
+        <td>{{colaborador.colaborador_nome}}</td>
+        <td>{{colaborador.colaborador_cpf}}</td>
+        <td>{{colaborador.colaborador_funcao}}</td>
+        <td><a href="{% url 'editar' colaborador.pk %}"><span name="post" class="glyphicon glyphicon-check"></span></a></td>
+    </tr>
+</tbody>
+{% endfor %} 
+</table>
+{% endif %}
+{% if controle == 2 %}
+<p class="lead">{{franquia}} não possui colaboradores para transferência</p>
+{% endif %}
+{% if controle == 0 %}
+<p class="lead">Digite à franquia da qual você deseja fazer a transferência</p>
+<form id='franquia' method='POST' action='/transferir'>
+    {% csrf_token %}
+  <input type="text" name="franquia">
+  <button class="btn btn-primary"type="submit">Consultar</button>
+</form>
+{% endif %}
+{% endblock content %}
